@@ -1,0 +1,7 @@
+package com.nafiul.demo.repositorys;
+
+import com.nafiul.demo.model.Student;
+import org.springframework.data.repository.CrudRepository;
+
+public interface StudentRepo extends CrudRepository<Student,Integer> {
+}
