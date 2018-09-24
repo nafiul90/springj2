@@ -7,6 +7,7 @@ import com.nafiul.demo.model.Student;
 import com.nafiul.demo.repositorys.AddressRepo;
 import com.nafiul.demo.repositorys.PhoneRepo;
 import com.nafiul.demo.repositorys.StudentRepo;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,13 @@ public class StudentController {
     @GetMapping("students")
     @ResponseBody
     public Iterable<Student> getAllStudent(){
-        return studentRepo.findAll();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        System.out.println(principal.toString());
+        if(principal.toString().equals("[ROLE_admin]"))
+            return studentRepo.findAll();
+
+        return null;
+
     }
 
     @GetMapping("student/{id}")
